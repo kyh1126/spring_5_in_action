@@ -1,0 +1,3 @@
+rootProject.name = 'springinaction'
+
+include '1장_스프링_시작하기'
