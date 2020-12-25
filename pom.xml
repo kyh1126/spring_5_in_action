@@ -12,4 +12,7 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <modules>
+        <module>3장_데이터로_작업하기</module>
+    </modules>
 </project>
