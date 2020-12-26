@@ -12,9 +12,7 @@ import java.util.List;
 @Entity
 public class Taco {
 
-    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date createdAt;
