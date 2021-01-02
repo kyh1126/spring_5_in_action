@@ -7,6 +7,7 @@
 - 사용자 파악하기
 
 ## 1. 스프링 시큐리티 활성화 하기
+
 - 최초에 스프링 부트 시큐리티 라이브러리를 추가해줌
 - spring-boot-starter-security 와 springframewor.security 패키지의 spring-security-test
     ```xml
@@ -23,7 +24,8 @@
  
  > 시큐리티 해당 라이브러리 추가 했을 때 추가되는 내용 확인해보기
 
-시큐리티 라이브러리 추가하면서 추가되는 & 변경되는 사항
+**시큐리티 라이브러리 추가하면서 추가되는 & 변경되는 사항**
+
 - 시큐리티에서 기본 제공하는 HTTP 로그인 페이지가 추가됨 (/login)
 - 콘솔에 패스워드 입력 노출 > 좋은 방법 아니
 - 모든 http 경로는 인증되어야 한다 ( 스프링 시큐리티 HTTP 기본인증 사용 )
@@ -35,26 +37,29 @@
   - WebSecurityConfigurerAdapter를 상속받거나, WebSecurityConfigurer를 구현해서 사용하기 ( 전자 선호 )
   - @EnableWebSecurity 어노테이션을 선언해줬을때 스프링 컨피규레이션이 임포티드 된다.
   - @EnableWebSecurity 를 선언하면, configure 메서드들이 오버라이드 되어서, 추상클래스 구현하는것. 그리고 기본설정값도 나와있다.
-```/**
- * Uses a {@link WebSecurity} to create the {@link FilterChainProxy} that performs the web
- * based security for Spring Security. It then exports the necessary beans. Customizations
- * can be made to {@link WebSecurity} by extending {@link WebSecurityConfigurerAdapter}
- * and exposing it as a {@link Configuration} or implementing
- * {@link WebSecurityConfigurer} and exposing it as a {@link Configuration}. This
- * configuration is imported when using {@link EnableWebSecurity}.
- *
- * @see EnableWebSecurity
- * @see WebSecurity
- * @author Rob Winch
- * @author Keesun Baik
- * @since 3.2
- */
-```
+    - `WebSecurityConfiguration`클래스 주석 
+    ```java
+    
+    /**
+     * Uses a {@link WebSecurity} to create the {@link FilterChainProxy} that performs the web
+     * based security for Spring Security. It then exports the necessary beans. Customizations
+     * can be made to {@link WebSecurity} by extending {@link WebSecurityConfigurerAdapter}
+     * and exposing it as a {@link Configuration} or implementing
+     * {@link WebSecurityConfigurer} and exposing it as a {@link Configuration}. This
+     * configuration is imported when using {@link EnableWebSecurity}.
+     *
+     * @see EnableWebSecurity
+     * @see WebSecurity
+     * @author Rob Winch
+     * @author Keesun Baik
+     * @since 3.2
+     */
+    ```
 
 - 스프링 시큐리티가 제공하는 필터들
-- 
 
 ## 2. 스프링 시큐리티 구성하기
+
 예제에 나오는 코드 구현
 - @Configuration, @EnableWebSecurity를 선언한 스프링 시큐리티 컨피그 클래스 구현
 - WebSecurityConfigurerAdapter를 구현한 클래스 생성하기
@@ -64,9 +69,9 @@
 - antMatchers
   - >Part of this mapping code has been kindly borrowed from Apache Ant
   - 앤트 스타일 매칭 의미 : ? , *, **
-    - ? : 1개의 이상의 문자와 매칭
-    - * : 0개 이상의 문자와 매칭 ('' 부터 ~ 디렉토리 이전 파일명)
-    - ** : 0개 이상의 디렉토리와 파일 매칭 ('' 부터 / 포함 한 모든 경)
+    - `?` : 1개의 이상의 문자와 매칭
+    - `*` : 0개 이상의 문자와 매칭 ('' 부터 ~ 디렉토리 이전 파일명)
+    - `**` : 0개 이상의 디렉토리와 파일 매칭 ('' 부터 / 포함 한 모든 경)
 
 ## 스프링 시큐리티에 인증정보를 저장하는 방법
 - AuthenticationManagerBuilder API를 사용해 빌더 형식으로 인증정보를 사용
@@ -80,16 +85,17 @@
 
 ### 2. JDBC 사용자 구현
 - `jdbcAuthentication()` 호출을 통해 구현. 이때 데이터 소스도 함꼐 설정해야함.
-- jdbc 템플릿 사용시 사용자 정보를 저장하는 테이블&쿼리가 디폴트로 설정됨 ( JdbcUserDetailsManager.java 클래스에 작성되어 있다)
+- jdbc 템플릿 사용시 사용자 정보를 저장하는 테이블&쿼리가 디폴트로 설정됨 ( `JdbcUserDetailsManager.java`, `JdbcDaoImpl.java` 클래스에 작성되어 있다)
   - 사용자 인증 쿼리 : `select username,password,enabled from users where username = ?`
-  - 사용자 권한 쿼리 : 
-  - 사용자 그룹&그룹권한 쿼리 :
+  - 사용자 권한 쿼리 : `select username,authority from authorities where username = ?`
+  - 사용자 그룹&그룹권한 쿼리 : `"select g.id, g.group_name, ga.authority from groups g, group_members gm, group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id`
 - 시큐리티가 제공하는 데이터베이스와 다른 데이터베이스를 사용하려면, 커스텀 하게 부여 할 수 있음
   - (JdbcUserDetailsManagerConfigurer)의 값을 변경해준다
 - 하지만 우리 예제 db엔 해당 테이블 정보가 없으니까 테이블 생성하고 사용자 추가해줘야함 -> schema.sql 사용
 
-*암호화 된 비밀번호 사용하기*
+**암호화 된 비밀번호 사용하기**
 - 스프링 5 이후 스프링 시큐리티 사용시 passwordEncoder를 필수로 매핑해줘야 한다
+- @deprecated된 암호화 클래스가 많으므로 사용시 확인 후 사용필요.
 `java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id "null"`
 
 패스워드 인코더 예제 ( 좋은 블로그 https://gompangs.github.io/2019/02/27/PasswordEncoder/)
@@ -103,7 +109,7 @@
    - 사용하려면 생성자 생성 아니고, 싱글톤으로 static 객체 받아옴
 - Pbkdf2PasswordEncoder : PBKDF2 암호화
 - SCryptPasswordEncoder : scrypt 해싱 암호화
-- StandardPasswordEncoder : SHA-256 암호화 ( Deprecated)
+- StandardPasswordEncoder : SHA-256 암호화 ( Deprecated )
 
 - 커스텀 인코더를 생성해서 매핑할 수도 있다 (PasswordEncoder 를 구현한 클래스 생성)
 
@@ -112,6 +118,8 @@
 - LDAP:  Lightweight Directory Access Protocol (디렉터리 기반 조회&수정 할 수 있는 프로토콜)
 - 동일 인증정보를 다른 서비스에서 가져가야 할  인증정보가 담긴 LDAP 서버를 앞에 두고 LDAP서버를 통해 인증정보를 가져갈 수 있도록 제어하는 경
 - inMemory, JDBC가 사용했던 UserDetailManager를 사용하지 않는다.
+  - ldap  interchange format 사용 https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format
+  - `cn` : 공통이름, `ou` : 기관 이름, `dc`: 도메인 컴포넌트
 - ldapAuthentication() 메서드 사용해 엘답 기반 생성
 ```java
 // ldap 인증의 간단 구성
@@ -180,7 +188,7 @@
   - + 로그인이 안된다..
   
   
-*사용자 인증 커스터마이징*
+### 4.사용자 인증 커스터마이징
 - JDBC 기반 인증을 사용하는 사용자 인증 커스터마이징 객체 생성&사
 - SpringSecurity의 UserDetails를 상속받는 객체 생성
 ```java
@@ -271,8 +279,10 @@ public class RegistrationForm {
 ```
 
 ## 3 웹 요청 보안 처리하기
+### 1. 웹 요청 보안 처리하기
 - 인증되야 접근할 수 있는 페이지(보안), 인증되지 않아도 모든 사용자가 볼 ㅅ ㅜ있는 페이지 설정
 - SecurityConfigurer 클래스 중 configure(HttpSecurity http)에서 보안 요청 설정
+- 이때 ~*순서가 중요함*~ 
 - antMachers(), hasRole()등 정의된 메서드를 이용하여 요청 별 권한 부여.
   - 요청별 권한 부여 정의한 메서드 
     | 메서드 | 작업 |
@@ -307,9 +317,10 @@ public class RegistrationForm {
     |isFullyAuthenticated() | 익명&rememberMe가 아니면 true |
 
 - SpEL로 생성 시, 규칙을 자유롭게 확장할 수 있어서 조금더 유연.
-- 이때 ~*순서가 중요함*~ 
+  - ex) `access("hasRole('ROLE_USER') && T(java.util.Calendar).getInstance().get(T(java.util.Calendar).DAY_OF_WEEK)==T(java.util.Calendar).TUESDAY)`
 
-## 3.2 커스텀 로그인 페이지 생성하기
+
+### 2 커스텀 로그인 페이지 생성하기
 ```java
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -342,8 +353,12 @@ public class RegistrationForm {
   - `.passwordParameter()` : 사용자 패스워드 파라미터 명 설정
   - `defaultSuccessUrl(String defaultSuccessUrl, boolean alwaysUse)`: 로그인 후 / 경로로 이동하는데, 로그인 경로를 변경할 수 있음. alwaysUse는 이전페이지가 어디었던지 간에 무관하게 로그인 성공하면 이동하도록 변경함.
 
-### 4. CSRF 공격 방어하기
+### 3. 로그아웃 하기
+- logout 호출
+- /logout의 POST요청을 가로채는 필터 설정 추가.
+- `logoutSuccessUrl()`: 로그아웃 후 이동할 페잊 ㅣ설정.
 
+### 4. CSRF 공격 방어하기
 - Cross-Site Request Forgery: 웹상에서 스크립트 위조 요청
 - CSRF 토큰을 요청에 포함시켜 방어 
 - 시큐리티내에 기본으로 활성화 되 있음.
