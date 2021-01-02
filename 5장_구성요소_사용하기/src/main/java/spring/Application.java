@@ -13,6 +13,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+
 	@Bean
 	public ApplicationRunner dataLoader(IngredientJpaRepository repository) {
 		return args -> {

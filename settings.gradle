@@ -2,3 +2,5 @@ rootProject.name = 'springinaction'
 
 include '1장_스프링_시작하기'
 include '2장_웹_어플리케이션_개발하기'
+include '5장_구성_속성_사용하기'
+

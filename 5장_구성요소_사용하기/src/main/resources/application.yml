@@ -1,0 +1,49 @@
+# JdbcTemplate Query Logging
+logging:
+  file:
+    path: /var/logs
+    name: TacoCloud.log
+  level:
+    root: warn
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    org.hibernate.type: trace
+    org.springframework.security: debug
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/tacocloud
+    username: root
+    password: root
+
+#    username: tacodb
+#    password: tacopassword
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    schema:
+#      - order-schema.sql
+#      - ingredient-schema.sql
+#      - taco-schema.sql
+#      - user-schema.sql
+#    data:
+#      - ingredients.sql
+
+server:
+  port: 8443
+  ssl:
+    key-store: file:///etc/keys/mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
+
+taco:
+  orders:
+    pageSize: 10
+
+---
+spring:
+  profiles:
+    active: prod

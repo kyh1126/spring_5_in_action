@@ -14,5 +14,6 @@
 
     <modules>
         <module>3장_데이터로_작업하기</module>
+        <module>5장_구성_속성_사용하기</module>
     </modules>
 </project>
