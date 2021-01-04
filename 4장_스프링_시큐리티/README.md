@@ -1,4 +1,4 @@
-#챕터 4 스프링 시큐리티
+# 챕터 4 스프링 시큐리티
 
 - 스프링 시큐리티 자동구성하기
 - 커스텀 사용자 스토리지 정의하기
@@ -286,6 +286,7 @@ public class RegistrationForm {
 - antMachers(), hasRole()등 정의된 메서드를 이용하여 요청 별 권한 부여.
   - 요청별 권한 부여 정의한 메서드 
     | 메서드 | 작업 |
+    |---|---|
     | access(String) | SpEL표현식이 true면 허용 |
     | annonymous() | 익명 사용자에게 접근 허용 |
     | authenticated() | 인증된 사용자인 경우 접근 허용 |
@@ -302,6 +303,7 @@ public class RegistrationForm {
     
   - 스프링 시큐리티에서 확장된 SpEL(access()에 파라미터로 전달)
     | SpEL 표현식 | 결과 |
+    |---|---|
     |authentication | 해당 사용자의 인증 객체 |
     |principal | principal 객체 |
     |denyAll | 항상 false |
