@@ -4,10 +4,12 @@ logging:
     path: /var/logs
     name: TacoCloud.log
   level:
-    root: warn
+    root: debug
     org.springframework.jdbc.core.JdbcTemplate: debug
     org.hibernate.type: trace
     org.springframework.security: debug
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
