@@ -1,0 +1,19 @@
+GET localhost:8080/api
+
+###
+GET localhost:8080/api/ingredients
+
+###
+GET localhost:8080/api/orders
+
+###
+GET localhost:8080/api/tacos
+
+###
+GET localhost:8080/api/tacos?size=5&page=0&sort=createdAt,desc
+
+###
+GET localhost:8080/api/users
+
+###
+GET localhost:8080/api/profile
