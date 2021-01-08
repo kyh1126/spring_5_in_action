@@ -4,7 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.yegachefu</groupId>
     <artifactId>springinaction</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -14,6 +16,6 @@
 
     <modules>
         <module>3장_데이터로_작업하기</module>
-        <module>5장_구성_속성_사용하기</module>
+        <module>4장_스프링_시큐리티</module>
     </modules>
 </project>
