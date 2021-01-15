@@ -101,9 +101,9 @@ SpringIntegration 공부하면서..
 ### Message
 - 어떤 스프링프레임워크에서 데이터 처리될 수 있도록 *메타데이터(헤더)* 와 *자바객체(페이로드)* 를 래핑한 것이라고 보면 됨  
 1. 헤더
-  - 공통적인 정보들을 가짐 (ex. id, timestamp, 주소 )
+    - 공통적인 정보들을 가짐 (ex. id, timestamp, 주소 )
 2. 페이로드
-  - 어떤 타입도 가능  
+    - 어떤 타입도 가능  
   
 ### Message Channel
 - 파이프라고 보 된다.
@@ -149,8 +149,7 @@ SpringIntegration 공부하면서..
   - 스탠드 얼론 어플리케이션 가능하니깐..?
   - 계속 업데이트 하는중..(메인테이너는 아직 죽지 않음)
 - 기능적 이점을 찾아 비교하는것도 왜라는 이유를 찾는데 도움이 되지 않을까.  
-
-
+  
 참고
 - [spring-integration-pdf_reference](https://docs.spring.io/spring-integration/docs/current/reference/pdf/spring-integration-reference.pdf)
 - [enterprise-integration-patterns-with-spring-integration](https://www.slideshare.net/hegdekiranr/enterprise-integration-patterns-with-spring-integration)
