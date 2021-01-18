@@ -19,5 +19,6 @@
         <module>4장_스프링_시큐리티</module>
         <module>7장_REST_서비스_사용하기</module>
         <module>9장_스프링통합하기</module>
+        <module>8장_비동기_메시지_전송하기</module>
     </modules>
 </project>
